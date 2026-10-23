@@ -1,0 +1,46 @@
+# voice-restore
+
+> Forensic + editorial skill: determine whether an English text was AI-polished, then
+> restore the author's own writing fingerprint (rather than a generic "human" average).
+
+## What it is for
+
+- "Is this document AI-touched?"
+- "My essay was flagged; make it sound like me again"
+- "Find the paragraphs that were uniformly rewritten"
+
+## Core claim
+
+Sentence-shape metrics (length variance, short-sentence ratio, opener distribution) measure
+how *smoothed* a text is, not whether a model wrote it. A non-native writer is flat by
+default; flat is their fingerprint. Optimising toward "average human writing" makes them
+less like themselves.
+
+## Three forensic tells
+
+1. First-person count across a long document (zero is deletion, not restraint)
+2. Prose semicolons (exclude table footnotes and citation separators)
+3. `the` vs `this` sentence-initial split (ratio matters more than either value)
+
+## Procedure
+
+Phase 1 forensics -> Phase 2 personal baseline -> Phase 3 restore (syntax, then vocabulary,
+then verify). Vocabulary must be re-measured after syntax: rebuilding sentences tempts you
+to add `therefore` and `rather than`, which are the strongest LLM-academic markers.
+
+## CLI
+
+    python scripts/voice_metrics.py report sample.txt
+    python scripts/voice_metrics.py compare baseline.txt draft.txt
+
+Standard library only. Python 3.8+.
+
+## Files
+
+- SKILL.md — the procedure
+- references/case-notes.md — one full case with measured numbers and three corrections
+- scripts/voice_metrics.py — measurement
+
+## Licence
+
+MIT

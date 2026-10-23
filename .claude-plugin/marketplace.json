@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "voice-restore",
+  "version": "1.0.0",
+  "description": "Find out whether a text was AI-touched, then restore the author's own voice. Three forensic tells, a personal baseline instead of a generic human average, and a syntax-then-vocabulary restoration pass with a measurement CLI.",
+  "author": {
+    "name": "CatsMansion"
+  },
+  "homepage": "https://github.com/CatsMansion/voice-restore",
+  "repository": "https://github.com/CatsMansion/voice-restore",
+  "license": "MIT",
+  "keywords": ["writing", "voice", "forensics", "editing", "ai-detection", "stylometry"],
+  "skills": [
+    "./"
+  ]
+}
