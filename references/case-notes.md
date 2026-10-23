@@ -12,6 +12,14 @@ debugging" — so the question was never *whether*, but *which layer*.
 - 1,950 words split across two co-authors on a group project (used to place the author's
   position between a fluent writer and a recent arrival)
 
+> **Measurement note.** Every count below comes from one instrument
+> (`scripts/voice_metrics.py`, v1.0.0), so the numbers are comparable to each other but
+> not necessarily to yours. Word counts run about 2% lower than Word's, because the script
+> only counts tokens that begin with a letter — `0.51`, `2021` and `13,700` are words in
+> Word and not here. Percentages move with the denominator, so a 2% word difference is a
+> 2% difference in every per-1k rate. Treat these as **readings from a named instrument**,
+> not as constants of the text.
+
 ---
 
 ## 1. What the forensics found
@@ -19,7 +27,7 @@ debugging" — so the question was never *whether*, but *which layer*.
 | Tell | Thesis body | Author's own writing |
 |---|---|---|
 | first person (`I/we/us/our/my/me`) | **0** in 7,766 words | 3 in 1,421 (`us` ×3) |
-| prose semicolons | **16** (1.88/1k) | **0** |
+| prose semicolons | **16** | **0** |
 | `The` initial | **25.8%** | 14.1% |
 | `This` initial | **6.2%** | 19.2% |
 
@@ -36,7 +44,7 @@ All three at once is the signature of a **polish pass**, not a generation:
 | Evidence | Why it matters |
 |---|---|
 | Sample-construction counts consistent across four deletion stages (15.7M → 139,904 → 41,945 observations) | A model does not invent a coherent multi-stage attrition chain |
-| Introduction kept `the`-initial at 6.2%, i.e. his own range | Those paragraphs still carry his fingerprint |
+| Introduction holds `the`-initial at 6.2% while the body sits at 25.8% — nearer his own 14.1% | Those paragraphs were not rewritten; they still carry his distribution |
 | Nominalisation density 63.7/1k vs his 59.1/1k | Polish usually pushes this up; it barely moved |
 | AI-word list scored 0.5/1k vs his 2.1/1k | The draft was *cleaner* than he is. The word list is useless on this corpus |
 
@@ -58,7 +66,7 @@ it belongs to the text class you are describing.
 
 ### 3.2 "Raise sentence-length cv to 0.42–0.52" → wrong direction
 
-His own cv is **0.290**. The thesis was already **0.518**. The instruction to increase
+His own cv is **0.286**. The thesis was already **0.518**. The instruction to increase
 variance would have moved it *away* from him. Two gate values built on "human writing
 averages" had to be withdrawn after the reference corpus arrived:
 
@@ -88,7 +96,7 @@ by default. Second attempt, merging back to 13–27 word sentences:
 | | author | draft | restored |
 |---|---|---|---|
 | sentence mean | 18.5 | 34.2 | **18.8** |
-| cv | 0.290 | 0.464 | 0.255 |
+| cv | 0.286 | 0.464 | 0.255 |
 | `The` initial | 14.1% | 55.6% | 11.8% |
 | `This` initial | 19.2% | 0% | 17.6% |
 | prose semicolons | 0 | 1 | 0 |

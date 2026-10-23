@@ -17,7 +17,7 @@ It isn't. Take one measured case — a 7,766-word finance thesis flagged at 46%:
 
 | | the thesis (flagged 46%) | the same author's undetected earlier essay |
 |---|---|---|
-| sentence-length cv | **0.518** | **0.290** |
+| sentence-length cv | **0.518** | **0.286** |
 | article-initial sentences | 35.9% | **41.0%** |
 | short sentences (≤10w) | 10% | 6% |
 
@@ -40,7 +40,7 @@ Three things, and they are cheap to count:
 | Tell | What it looks like | Why it's hard to explain away |
 |---|---|---|
 | **First person = 0** | 7,766 words, not one `I / we / us / our / my` | Nobody writes their own thesis without once saying `remind us` |
-| **Prose semicolons appear** | author's own writing: **0** in 3,415 words; polished draft: **16** in 8,504 | Semicolons weld two independent sentences together — that is an *editing* move, not a *drafting* move |
+| **Prose semicolons appear** | author's own writing: **0** in 3,371 words; polished draft: **16** | Semicolons weld two independent sentences together — that is an *editing* move, not a *drafting* move |
 | **`The` up, `This` down** | author: `The` 14.1% / `This` 19.2%; draft: `The` 25.8% / `This` 6.2% | He delegates anaphora to `This`. The polish pass rewrote every one as `The` |
 
 The judgement is not "exceeds threshold → AI". It is **the three being mutually
@@ -78,7 +78,7 @@ One real before/after, same section, every number preserved:
 | | author | draft | restored |
 |---|---|---|---|
 | sentence mean | 18.5 | 34.2 | **18.8** |
-| sentence cv | 0.290 | 0.464 | 0.255 |
+| sentence cv | 0.286 | 0.464 | 0.255 |
 | `The` initial | 14.1% | 55.6% | **11.8%** |
 | `This` initial | 19.2% | 0% | **17.6%** |
 | prose semicolons | 0 | 1 | **0** |
