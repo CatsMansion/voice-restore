@@ -2,7 +2,8 @@
 
 Anonymised. Numbers are real; names, institution and course are not.
 
-**Subject.** A 54-page honours thesis in finance, 7,766 words of body prose, 357 sentences.
+**Subject.** A 54-page honours thesis in finance: 8,962 words of body prose across 463 sentences
+in 122 paragraphs. Measured from the LaTeX source, not the PDF (see §6).
 Turnitin returned **46%** with 69 segments flagged as AI-generated. The author's declaration
 openly states that GenAI was used "to assist with language editing, code checking, and
 debugging" — so the question was never *whether*, but *which layer*.
@@ -26,25 +27,26 @@ debugging" — so the question was never *whether*, but *which layer*.
 
 | Tell | Thesis body | Author's own writing |
 |---|---|---|
-| first person (`I/we/us/our/my/me`) | **0** in 7,766 words | 3 in 1,421 (`us` ×3) |
-| prose semicolons | **16** | **0** |
-| `The` initial | **25.8%** | 14.1% |
-| `This` initial | **6.2%** | 19.2% |
+| first person (`I/we/us/our/my/me`) | **0** in 8,962 words | 3 in 1,421 (`us` ×3) |
+| prose semicolons | **18** | **0** |
+| `The` initial | **26.3%** | 14.1% |
+| `This` initial | **5.4%** | 19.2% |
 
 All three at once is the signature of a **polish pass**, not a generation:
 
-- zero first person across 7,766 words is not restraint, it is deletion
+- zero first person across 8,962 words is not restraint, it is deletion
 - his first person is not `I` — it is argumentative `us` (`remind us`, `does not tell us`).
   That habit was zeroed out entirely
 - semicolons weld two sentences into one. Nobody drafts that way; editors do
-- he delegates anaphora to `This`. Every one of his `This …` openers came back as `The …`
+- he delegates anaphora to `This`. Where he would have written `This …`, the polished draft
+  has `The …`: 26.3% `the`-initial against his 14.1%, and `this` down to 5.4% from 19.2%
 
 ## 2. What argued against wholesale generation
 
 | Evidence | Why it matters |
 |---|---|
 | Sample-construction counts consistent across four deletion stages (15.7M → 139,904 → 41,945 observations) | A model does not invent a coherent multi-stage attrition chain |
-| Introduction holds `the`-initial at 6.2% while the body sits at 25.8% — nearer his own 14.1% | Those paragraphs were not rewritten; they still carry his distribution |
+| Section 1.1 opens with `this` at 25.0% and `the` at 6.2%, against 26.3% `the` for the body | That is his own opener habit, intact in the section he wrote first |
 | Nominalisation density 63.7/1k vs his 59.1/1k | Polish usually pushes this up; it barely moved |
 | AI-word list scored 0.5/1k vs his 2.1/1k | The draft was *cleaner* than he is. The word list is useless on this corpus |
 
@@ -66,7 +68,7 @@ it belongs to the text class you are describing.
 
 ### 3.2 "Raise sentence-length cv to 0.42–0.52" → wrong direction
 
-His own cv is **0.286**. The thesis was already **0.518**. The instruction to increase
+His own cv is **0.286**. The thesis was already **0.478**. The instruction to increase
 variance would have moved it *away* from him. Two gate values built on "human writing
 averages" had to be withdrawn after the reference corpus arrived:
 
@@ -134,7 +136,68 @@ had three defects:
 3. **Display equations missing** — only the surrounding `where f denotes …` survived
 
 Rewriting from that source would have written table notes into the body and deleted the
-equations. The correct input is the author's original `.docx`.
+equations. The correct input is the author's original `.docx` — or, better, the `.tex`.
 
 **Rule:** never rebuild a submission-ready document from a PDF text layer. Measure from it,
 yes; regenerate from it, no.
+
+---
+
+## 7. The same document, measured twice
+
+The LaTeX source arrived after the first pass. Re-running the *same instrument* on it gave
+a different set of numbers — and this is the most useful thing in the file, because it
+bounds how much a PDF-derived measurement can be trusted.
+
+| | from the PDF | from the `.tex` | error |
+|---|---|---|---|
+| body words | 7,766 | **8,962** | +15.4% |
+| sentences | 357 | **463** | +29.7% |
+| sentence mean | 21.8 | **19.4** | −11.0% |
+| sentence cv | 0.518 | **0.478** | −7.7% |
+| `the` initial | 25.8% | **26.3%** | +1.9% |
+| `this` initial | 6.2% | **5.4%** | −12.9% |
+| prose semicolons | 16 | **18** | +12.5% |
+| first person | 0 | **0** | 0 |
+
+Read that carefully. The **direction of every tell survived**. The **magnitudes did not**:
+sentences were undercounted by 30%, which inflated mean sentence length by 11% and
+deflated `this`-initial by 13%. A report that said "cv 0.518 versus his 0.286" was
+overstating the gap by 8%; one that said "357 sentences" was wrong by a third.
+
+**Rule:** a rate with a wrong denominator is not a rough estimate, it is a different claim.
+If the source exists, measure the source.
+
+---
+
+## 8. The tells are not spread evenly — they are concentrated
+
+Per-section measurement of the same document is what makes the case actionable:
+
+| section | words | `the` initial | `this` initial | prose semicolons |
+|---|---|---|---|---|
+| §1 Introduction | 966 | 25.0% | 12.5% | 1 |
+| §2 Literature | 1,259 | **9.7%** | 6.5% | 2 |
+| §3 Hypotheses | 618 | **12.8%** | 7.7% | 0 |
+| §4 Data & Method | 2,531 | **33.1%** | **0.8%** | **13** |
+| §5 Results | 2,011 | **35.7%** | 6.1% | 1 |
+| §6 Discussion | 1,577 | 25.6% | 4.4% | 1 |
+
+§2 and §3 already sit near the author's own 14.1% — those sections were barely touched.
+§4 has `this` in **one sentence out of 118**, and 13 of the 18 semicolons. 82% of all
+`The`-openers in the document are in §4–§6.
+
+**So the work is not "rewrite the paper", it is "rewrite §4–§6".** Measuring per section
+turned a 9,000-word job into a 6,000-word one, and told us where the damage actually was.
+
+## 9. `this` density is not a constant — do not chase it
+
+The same document ranges from **0.8%** `this`-initial (§4) to **25.0%** (§1.1). A
+three-fold spread inside one author's one document means opener distribution tracks
+**section function**, not personal identity. Taking 19.2% from a separate 1,440-word sample
+and treating it as a target would have been over-fitting a short sample.
+
+The defensible target is local: bring the outlier sections back into the band the author
+uses *elsewhere in the same document*. After restoration §4 sits at 17.9% `the` / 16.4%
+`this` and §5 at 20.2% / 21.1% — inside the band, not at a number pulled from elsewhere.
+

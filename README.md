@@ -13,13 +13,13 @@ do, this skill sides with the author.
 Every "reduce AI detection" guide says the same thing: vary sentence length, add short
 sentences, insert personal voice. That advice assumes the target is a generic human.
 
-It isn't. Take one measured case — a 7,766-word finance thesis flagged at 46%:
+It isn't. Take one measured case — an 8,962-word finance thesis flagged at 46%:
 
 | | the thesis (flagged 46%) | the same author's undetected earlier essay |
 |---|---|---|
-| sentence-length cv | **0.518** | **0.286** |
-| article-initial sentences | 35.9% | **41.0%** |
-| short sentences (≤10w) | 10% | 6% |
+| sentence-length cv | **0.478** | **0.286** |
+| article-initial sentences | 37.1% | **41.0%** |
+| short sentences (≤10w) | 15% | 6% |
 
 The flagged document is **more varied** than the author's own writing, and uses **fewer**
 article-initial sentences. By the standard burstiness playbook, it was already "more human"
@@ -39,9 +39,9 @@ Three things, and they are cheap to count:
 
 | Tell | What it looks like | Why it's hard to explain away |
 |---|---|---|
-| **First person = 0** | 7,766 words, not one `I / we / us / our / my` | Nobody writes their own thesis without once saying `remind us` |
-| **Prose semicolons appear** | author's own writing: **0** in 3,371 words; polished draft: **16** | Semicolons weld two independent sentences together — that is an *editing* move, not a *drafting* move |
-| **`The` up, `This` down** | author: `The` 14.1% / `This` 19.2%; draft: `The` 25.8% / `This` 6.2% | He delegates anaphora to `This`. The polish pass rewrote every one as `The` |
+| **First person = 0** | 8,962 words, not one `I / we / us / our / my` | Nobody writes their own thesis without once saying `remind us` |
+| **Prose semicolons appear** | author's own writing: **0** in 3,371 words; polished draft: **18** | Semicolons weld two independent sentences together — that is an *editing* move, not a *drafting* move |
+| **`The` up, `This` down** | author: `The` 14.1% / `This` 19.2%; draft: `The` 26.3% / `This` 5.4% | He delegates anaphora to `This`. The polish pass rewrote every one as `The` |
 
 The judgement is not "exceeds threshold → AI". It is **the three being mutually
 inconsistent**. A writer can avoid first person (disciplinary norm), or love semicolons
@@ -73,16 +73,21 @@ Phase 3  restore     syntax layer → vocabulary layer → verify against baseli
 3. **Verify** — against the baseline, not against an ideal. Anything still off gets
    reported as off.
 
-One real before/after, same section, every number preserved:
+One real restoration, measured from the author's LaTeX source, every number preserved:
 
-| | author | draft | restored |
-|---|---|---|---|
-| sentence mean | 18.5 | 34.2 | **18.8** |
-| sentence cv | 0.286 | 0.464 | 0.255 |
-| `The` initial | 14.1% | 55.6% | **11.8%** |
-| `This` initial | 19.2% | 0% | **17.6%** |
-| prose semicolons | 0 | 1 | **0** |
-| first person | 3 | 0 | **1** |
+| | author | §4 before | §4 after | §5 before | §5 after |
+|---|---|---|---|---|---|
+| sentence mean | 18.5 | 21.4 | **18.1** | 20.5 | **18.4** |
+| sentence cv | 0.286 | 0.479 | 0.459 | 0.448 | **0.353** |
+| `The` initial | 14.1% | 33.1% | **17.9%** | 35.7% | **20.2%** |
+| `This` initial | 19.2% | 0.8% | **16.4%** | 6.1% | **21.1%** |
+| prose semicolons | 0 | 13 | **0** | 1 | **0** |
+| first person | 3 | 0 | **1** | 0 | **1** |
+
+The tells were concentrated, not spread: §2 and §3 of the same document already sat at
+`The` 9.7% and 12.8%, so they were left alone. §4 held `This` in **one sentence out of
+118**. Measuring per section is what turned this into a six-thousand-word job instead of
+a nine-thousand-word one.
 
 ---
 
@@ -120,9 +125,10 @@ were all fabricated. The splitter here protects abbreviations and decimals, beca
 every number downstream depends on it.
 
 **Counting punctuation requires knowing where it lives.** The semicolon tell was first
-reported as 24. The real prose count was 16 — the rest were table footnotes (`Notes: … ; …`)
-and citation separators inside parentheses. Overstating a tell by 50% is worse than not
-having it.
+reported as 24. Filtering table footnotes (`Notes: … ; …`) and citation separators inside
+parentheses brought it to 16 — and the LaTeX source later said 18. So the first number was
+too high by a third and the second too low by two. Both mistakes had the same shape: the
+count was taken over the wrong span of text, and nothing in the number said so.
 
 **The instrument failed three times before it was right.** Each failure was the same
 family: *a metric that looked reasonable and measured the wrong thing*. The fix each
